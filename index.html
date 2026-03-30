@@ -115,9 +115,26 @@
   .footer-days { font-weight: 800; font-size: 26px; color: var(--orange); letter-spacing: -0.03em; line-height: 1; }
 
   @media print {
+    @page {
+      margin: 0;
+      size: A4;
+    }
     html { background: white; }
-    body { max-width: 100%; margin: 0; box-shadow: none; }
+    body { max-width: 100%; margin: 0; box-shadow: none; font-size: 13px; }
     * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    .cover { height: 220px; }
+    .cover-headline { font-size: 32px; }
+    .doc-body { padding: 36px 40px; }
+    .candidate-bar { padding: 14px 40px; }
+    .doc-footer { padding: 24px 40px; }
+    .intro { padding-bottom: 32px; margin-bottom: 32px; }
+    .sec { margin-bottom: 32px; }
+    .photo-strip { grid-template-rows: 110px 110px; margin-bottom: 32px; }
+    .mod-salary { font-size: 26px; }
+    .intro-headline { font-size: 24px; }
+    .fecha-block { margin: 24px 0 32px; }
+    .modalities { page-break-inside: avoid; }
+    .profit-grid { page-break-inside: avoid; }
   }
 </style>
 </head>
