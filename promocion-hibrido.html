@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carta de Promoción — Aerolab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #08080a; --ink-mid: #3a3835; --ink-soft: #7a7570;
+    --cream: #f0ece4; --cream-soft: #f8f6f2;
+    --orange: #ff6b35; --orange-dim: rgba(255,107,53,0.10);
+    --border: rgba(8,8,10,0.09); --border-strong: rgba(8,8,10,0.16);
+    --font: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #ccc;
+    font-family: var(--font);
+    padding: 32px 0 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .toolbar {
+    width: 794px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .toolbar-wordmark {
+    display: flex; align-items: center; gap: 8px;
+    font-weight: 800; font-size: 16px; letter-spacing: -0.04em;
+    color: var(--ink);
+  }
+  .print-btn {
+    background: var(--ink); color: var(--cream);
+    border: none; border-radius: 8px;
+    padding: 9px 18px;
+    font-family: var(--font); font-size: 13px; font-weight: 600;
+    cursor: pointer; display: flex; align-items: center; gap: 7px;
+    transition: opacity .15s;
+  }
+  .print-btn:hover { opacity: .8; }
+
+  /* A4 PAGE */
+  .page {
+    width: 794px;
+    height: 1123px;
+    background: var(--cream);
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.18);
+    display: flex;
+    flex-direction: column;
+  }
+
+  [contenteditable] { outline: none; cursor: text; }
+  [contenteditable]:hover { background: rgba(255,107,53,0.07); border-radius: 2px; }
+  [contenteditable]:focus { background: rgba(255,107,53,0.12); border-radius: 2px; box-shadow: 0 0 0 1.5px rgba(255,107,53,0.4); }
+
+  /* COVER */
+  .cover {
+    background: var(--ink);
+    padding: 28px 44px 24px;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 3px solid var(--orange);
+  }
+  .cover-left { display: flex; flex-direction: column; gap: 5px; }
+  .cover-kicker {
+    font-family: var(--mono);
+    font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--orange);
+  }
+  .cover-headline {
+    font-weight: 800; font-size: 34px; letter-spacing: -0.04em;
+    color: var(--cream); line-height: 1.05;
+  }
+  .cover-right { text-align: right; }
+  .cover-wordmark {
+    display: flex; align-items: center; gap: 8px;
+    font-weight: 800; font-size: 17px; letter-spacing: -0.04em;
+    color: rgba(240,236,228,0.25);
+    margin-bottom: 8px; justify-content: flex-end;
+  }
+  .cover-date {
+    font-family: var(--mono); font-size: 11px;
+    color: rgba(240,236,228,0.45);
+    min-width: 90px; display: inline-block; text-align: right;
+  }
+
+  /* CANDIDATE BAR */
+  .candidate-bar {
+    background: rgba(8,8,10,0.04);
+    border-bottom: 1px solid var(--border-strong);
+    padding: 14px 44px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    flex-shrink: 0;
+  }
+  .cfield label {
+    display: block;
+    font-family: var(--mono); font-size: 8px; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--ink-soft); margin-bottom: 3px;
+  }
+  .cfield .val {
+    font-weight: 700; font-size: 12px; color: var(--ink);
+    border-bottom: 1px dashed rgba(255,107,53,0.45);
+    padding-bottom: 2px; display: inline-block; min-width: 110px;
+  }
+  .cfield .val.accent { color: var(--orange); }
+
+  /* BODY */
+  .body {
+    padding: 30px 44px 28px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+  }
+
+  .sec-label {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--orange); font-weight: 600;
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 12px;
+  }
+  .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border-strong); }
+
+  .body-text {
+    font-size: 14.5px; line-height: 1.75;
+    color: var(--ink-mid);
+  }
+  .body-text + .body-text { margin-top: 10px; }
+  .body-text strong { color: var(--ink); font-weight: 700; }
+
+  /* SALARY GRID */
+  .salary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .salary-card {
+    background: var(--cream-soft);
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    padding: 16px 18px;
+  }
+  .salary-card.primary { border-color: rgba(255,107,53,0.3); background: var(--orange-dim); }
+
+  .s-label {
+    font-family: var(--mono); font-size: 8px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--ink-soft); margin-bottom: 6px;
+  }
+  .s-label.accent { color: var(--orange); }
+
+  .s-amount {
+    font-size: 22px; font-weight: 800; letter-spacing: -0.04em; color: var(--ink);
+  }
+  .s-amount .currency { font-size: 13px; font-weight: 600; color: var(--orange); margin-right: 2px; }
+
+  .s-meta { font-size: 11px; color: var(--ink-soft); margin-top: 3px; }
+
+  /* DESGLOSE */
+  .desglose {
+    background: var(--cream-soft);
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .desglose-header {
+    padding: 10px 16px;
+    background: rgba(8,8,10,0.04);
+    border-bottom: 1px solid var(--border-strong);
+    font-family: var(--mono); font-size: 8px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--ink-soft);
+  }
+  .desglose-row {
+    padding: 8px 16px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid var(--border);
+    font-size: 12.5px; color: var(--ink-mid);
+  }
+  .desglose-row:last-child { border-bottom: none; }
+  .desglose-row .d-val {
+    font-weight: 600; color: var(--ink); font-family: var(--mono); font-size: 12px;
+  }
+  .desglose-row .d-val [contenteditable] {
+    min-width: 60px; display: inline-block;
+  }
+
+  /* CALLOUT */
+  .callout {
+    background: var(--ink);
+    border-radius: 8px;
+    padding: 15px 20px;
+    display: flex; align-items: flex-start; gap: 12px;
+  }
+  .callout-icon { font-size: 16px; line-height: 1.6; flex-shrink: 0; }
+  .callout-text {
+    font-size: 13px; line-height: 1.65;
+    color: var(--cream); font-weight: 500;
+  }
+  .callout-text [contenteditable] {
+    border-bottom: 1px dashed rgba(255,107,53,0.6);
+    color: var(--cream);
+  }
+
+  .closing {
+    font-size: 14.5px; line-height: 1.75;
+    color: var(--ink-mid);
+  }
+
+  /* FOOTER */
+  .footer {
+    border-top: 1px solid var(--border-strong);
+    padding: 12px 44px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .footer span {
+    font-family: var(--mono); font-size: 10px; color: var(--ink-soft);
+  }
+
+  /* PRINT */
+  @media print {
+    @page { margin: 0; size: A4; }
+    body { background: white; padding: 0; }
+    .toolbar { display: none; }
+    .page { box-shadow: none; }
+    [contenteditable] { outline: none !important; box-shadow: none !important; background: transparent !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="toolbar-wordmark">
+    <svg width="18" height="16" viewBox="0 0 20.74 17.96" xmlns="http://www.w3.org/2000/svg">
+      <path d="M11.59,17.32c-1.11.62-2.39.78-3.52.54-2.72-.58-4.3-2.79-4.71-5.97-.16-1.25-.32-2.69-.87-3.9-.43-.97-1.14-1.77-2.35-2.09-.09-.02-.15-.12-.13-.21.08-.38.28-1.3.36-1.69,0-.05.04-.09.08-.11.04-.03.09-.03.14-.02,1.97.48,3.12,1.72,3.81,3.27.62,1.39.85,3.05,1.03,4.49.27,2.17,1.21,3.8,3.07,4.2.73.15,1.56.03,2.25-.43.07-.05.1-.13.07-.21-.4-1.08-3.16-8.68-3.56-9.78-.03-.08,0-.16.07-.21C8.25,4.6,14.26.7,15.29.03c.08-.05.19-.03.25.05.67,1.03,4.58,7.03,5.18,7.95.05.07.04.16-.02.22-.89.92-7.52,7.76-7.52,7.76,0,0,0,0,0,0-.27.28-.91.92-1.57,1.29Z" fill="#ff5005"/>
+    </svg>
+    Aerolab People
+  </div>
+  <button class="print-btn" onclick="window.print()">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M6 9V2h12v7"/><rect x="6" y="14" width="12" height="8"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+    </svg>
+    Exportar PDF
+  </button>
+</div>
+
+<div class="page">
+
+  <!-- COVER -->
+  <div class="cover">
+    <div class="cover-left">
+      <div class="cover-kicker">Documento oficial · Confidencial</div>
+      <h1 class="cover-headline">Carta de<br>Promoción</h1>
+    </div>
+    <div class="cover-right">
+      <div class="cover-wordmark">
+        <svg width="15" height="13" viewBox="0 0 20.74 17.96" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11.59,17.32c-1.11.62-2.39.78-3.52.54-2.72-.58-4.3-2.79-4.71-5.97-.16-1.25-.32-2.69-.87-3.9-.43-.97-1.14-1.77-2.35-2.09-.09-.02-.15-.12-.13-.21.08-.38.28-1.3.36-1.69,0-.05.04-.09.08-.11.04-.03.09-.03.14-.02,1.97.48,3.12,1.72,3.81,3.27.62,1.39.85,3.05,1.03,4.49.27,2.17,1.21,3.8,3.07,4.2.73.15,1.56.03,2.25-.43.07-.05.1-.13.07-.21-.4-1.08-3.16-8.68-3.56-9.78-.03-.08,0-.16.07-.21C8.25,4.6,14.26.7,15.29.03c.08-.05.19-.03.25.05.67,1.03,4.58,7.03,5.18,7.95.05.07.04.16-.02.22-.89.92-7.52,7.76-7.52,7.76,0,0,0,0,0,0-.27.28-.91.92-1.57,1.29Z" fill="rgba(240,236,228,0.25)"/>
+        </svg>
+        Aerolab
+      </div>
+      <div class="cover-date" id="doc-date" contenteditable="true"></div>
+    </div>
+  </div>
+
+  <!-- CANDIDATE BAR -->
+  <div class="candidate-bar">
+    <div class="cfield">
+      <label>Para</label>
+      <div class="val" contenteditable="true">[Nombre]</div>
+    </div>
+    <div class="cfield">
+      <label>Nuevo rol</label>
+      <div class="val accent" contenteditable="true">[Rol · Seniority]</div>
+    </div>
+    <div class="cfield">
+      <label>Modalidad</label>
+      <div class="val">Híbrido</div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <div>
+      <p class="sec-label">01 — La promoción</p>
+      <p class="body-text">¡Hola <strong><span contenteditable="true">[Nombre]</span></strong>!</p>
+      <p class="body-text" style="margin-top:10px;">Estamos muy contentos de poder contarte los detalles sobre tu promoción a <strong><span contenteditable="true">[nuevo rol y seniority]</span></strong>.</p>
+    </div>
+
+    <div>
+      <p class="sec-label">02 — Tu nuevo sueldo</p>
+      <div class="salary-grid">
+        <div class="salary-card primary">
+          <div class="s-label accent">Contractor · Deel</div>
+          <div class="s-amount"><span class="currency">USD</span><span contenteditable="true">[monto]</span></div>
+          <div class="s-meta">Pago mensual en dólares</div>
+        </div>
+        <div class="salary-card">
+          <div class="s-label">Relación de dependencia · ARS</div>
+          <div class="s-amount"><span class="currency" style="color:var(--ink-soft)">$</span><span contenteditable="true">[monto ARS]</span></div>
+          <div class="s-meta">Sueldo bruto mensual</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <p class="sec-label">03 — Desglose híbrido</p>
+      <div class="desglose">
+        <div class="desglose-header">Composición del paquete total</div>
+        <div class="desglose-row">
+          <span>Contractor (Deel) — USD</span>
+          <span class="d-val"><span contenteditable="true">[USD]</span></span>
+        </div>
+        <div class="desglose-row">
+          <span>Relación de dependencia — ARS bruto</span>
+          <span class="d-val">$ <span contenteditable="true">[ARS]</span></span>
+        </div>
+        <div class="desglose-row">
+          <span>Obra social OSDE 310</span>
+          <span class="d-val" style="color:var(--ink-soft)">Incluida</span>
+        </div>
+        <div class="desglose-row">
+          <span>Aguinaldo + plus vacacional</span>
+          <span class="d-val" style="color:var(--ink-soft)">Parte ARS</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-icon">🗓</div>
+      <div class="callout-text">
+        Esta promoción es efectiva al <span contenteditable="true">[fecha]</span>, esto quiere decir que a fin de este mes ya cobrarías el sueldo nuevo.
+      </div>
+    </div>
+
+    <p class="closing">¡Nos encanta que seas parte de este equipo y estamos muy orgullosos de tu crecimiento! 🚀</p>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <span>aerolab.co · Documento confidencial</span>
+    <span>People · Aerolab</span>
+  </div>
+
+</div>
+
+<script>
+  const d = new Date();
+  document.getElementById('doc-date').textContent =
+    d.toLocaleDateString('es-AR', {day:'numeric', month:'long', year:'numeric'});
+</script>
+</body>
+</html>
