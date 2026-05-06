@@ -263,11 +263,11 @@
   <div class="candidate-bar">
     <div class="cfield">
       <label>Para</label>
-      <div class="val" contenteditable="true">[Nombre]</div>
+      <div class="val" contenteditable="true" data-sync="nombre">[Nombre]</div>
     </div>
     <div class="cfield">
       <label>Nuevo rol</label>
-      <div class="val accent" contenteditable="true">[Rol · Seniority]</div>
+      <div class="val accent" contenteditable="true" data-sync="rol">[Rol · Seniority]</div>
     </div>
     <div class="cfield">
       <label>Modalidad</label>
@@ -280,8 +280,8 @@
 
     <div>
       <p class="sec-label">01 — La promoción</p>
-      <p class="body-text">¡Hola <strong><span contenteditable="true">[Nombre]</span></strong>!</p>
-      <p class="body-text" style="margin-top:10px;">Estamos muy contentos de poder contarte los detalles sobre tu promoción a <strong><span contenteditable="true">[nuevo rol y seniority]</span></strong>.</p>
+      <p class="body-text">¡Hola <strong><span contenteditable="true" data-sync="nombre">[Nombre]</span></strong>!</p>
+      <p class="body-text" style="margin-top:10px;">Estamos muy contentos de poder contarte los detalles sobre tu promoción a <strong><span contenteditable="true" data-sync="rol">[nuevo rol y seniority]</span></strong>.</p>
     </div>
 
     <div>
@@ -324,6 +324,16 @@
   const d = new Date();
   document.getElementById('doc-date').textContent =
     d.toLocaleDateString('es-AR', {day:'numeric', month:'long', year:'numeric'});
+
+  document.querySelectorAll('[data-sync]').forEach(el => {
+    el.addEventListener('input', () => {
+      const key = el.dataset.sync;
+      const val = el.textContent;
+      document.querySelectorAll(`[data-sync="${key}"]`).forEach(other => {
+        if (other !== el) other.textContent = val;
+      });
+    });
+  });
 </script>
 </body>
 </html>

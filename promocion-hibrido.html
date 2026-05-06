@@ -286,11 +286,11 @@
   <div class="candidate-bar">
     <div class="cfield">
       <label>Para</label>
-      <div class="val" contenteditable="true">[Nombre]</div>
+      <div class="val" contenteditable="true" data-sync="nombre">[Nombre]</div>
     </div>
     <div class="cfield">
       <label>Nuevo rol</label>
-      <div class="val accent" contenteditable="true">[Rol · Seniority]</div>
+      <div class="val accent" contenteditable="true" data-sync="rol">[Rol · Seniority]</div>
     </div>
     <div class="cfield">
       <label>Modalidad</label>
@@ -303,8 +303,8 @@
 
     <div>
       <p class="sec-label">01 — La promoción</p>
-      <p class="body-text">¡Hola <strong><span contenteditable="true">[Nombre]</span></strong>!</p>
-      <p class="body-text" style="margin-top:10px;">Estamos muy contentos de poder contarte los detalles sobre tu promoción a <strong><span contenteditable="true">[nuevo rol y seniority]</span></strong>.</p>
+      <p class="body-text">¡Hola <strong><span contenteditable="true" data-sync="nombre">[Nombre]</span></strong>!</p>
+      <p class="body-text" style="margin-top:10px;">Estamos muy contentos de poder contarte los detalles sobre tu promoción a <strong><span contenteditable="true" data-sync="rol">[nuevo rol y seniority]</span></strong>.</p>
     </div>
 
     <div>
@@ -312,12 +312,12 @@
       <div class="salary-grid">
         <div class="salary-card primary">
           <div class="s-label accent">Contractor · Deel</div>
-          <div class="s-amount"><span class="currency">USD</span><span contenteditable="true">[monto]</span></div>
+          <div class="s-amount"><span class="currency">USD</span><span contenteditable="true" data-sync="monto-usd">[monto]</span></div>
           <div class="s-meta">Pago mensual en dólares</div>
         </div>
         <div class="salary-card">
           <div class="s-label">Relación de dependencia · ARS</div>
-          <div class="s-amount"><span class="currency" style="color:var(--ink-soft)">$</span><span contenteditable="true">[monto ARS]</span></div>
+          <div class="s-amount"><span class="currency" style="color:var(--ink-soft)">$</span><span contenteditable="true" data-sync="monto-ars">[monto ARS]</span></div>
           <div class="s-meta">Sueldo bruto mensual</div>
         </div>
       </div>
@@ -329,11 +329,11 @@
         <div class="desglose-header">Composición del paquete total</div>
         <div class="desglose-row">
           <span>Contractor (Deel) — USD</span>
-          <span class="d-val"><span contenteditable="true">[USD]</span></span>
+          <span class="d-val"><span contenteditable="true" data-sync="monto-usd">[USD]</span></span>
         </div>
         <div class="desglose-row">
           <span>Relación de dependencia — ARS bruto</span>
-          <span class="d-val">$ <span contenteditable="true">[ARS]</span></span>
+          <span class="d-val">$ <span contenteditable="true" data-sync="monto-ars">[ARS]</span></span>
         </div>
         <div class="desglose-row">
           <span>Obra social OSDE 310</span>
@@ -369,6 +369,16 @@
   const d = new Date();
   document.getElementById('doc-date').textContent =
     d.toLocaleDateString('es-AR', {day:'numeric', month:'long', year:'numeric'});
+
+  document.querySelectorAll('[data-sync]').forEach(el => {
+    el.addEventListener('input', () => {
+      const key = el.dataset.sync;
+      const val = el.textContent;
+      document.querySelectorAll(`[data-sync="${key}"]`).forEach(other => {
+        if (other !== el) other.textContent = val;
+      });
+    });
+  });
 </script>
 </body>
 </html>
