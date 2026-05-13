@@ -218,6 +218,13 @@
     color: var(--cream);
   }
 
+  .body-text[contenteditable]:empty::before {
+    content: attr(data-placeholder);
+    color: var(--ink-soft);
+    font-style: italic;
+    pointer-events: none;
+  }
+
   .closing {
     font-size: 14.5px; line-height: 1.75;
     color: var(--ink-mid);
@@ -309,16 +316,21 @@
 
     <div>
       <p class="sec-label">02 — Tu nuevo sueldo</p>
+      <div class="salary-card primary" style="margin-bottom:12px;">
+        <div class="s-label accent">Sueldo total</div>
+        <div class="s-amount"><span class="currency">USD</span><span contenteditable="true" data-sync="monto-total">[monto total]</span></div>
+        <div class="s-meta">Sueldo bruto total mensual</div>
+      </div>
       <div class="salary-grid">
-        <div class="salary-card primary">
+        <div class="salary-card">
           <div class="s-label accent">Contractor · Deel</div>
-          <div class="s-amount"><span class="currency">USD</span><span contenteditable="true" data-sync="monto-usd">[monto]</span></div>
-          <div class="s-meta">Pago mensual en dólares</div>
+          <div class="s-amount"><span class="currency">USD</span><span contenteditable="true" data-sync="monto-usd">[monto USD]</span></div>
+          <div class="s-meta">Parte en dólares</div>
         </div>
         <div class="salary-card">
           <div class="s-label">Relación de dependencia · ARS</div>
-          <div class="s-amount"><span class="currency" style="color:var(--ink-soft)">$</span><span contenteditable="true" data-sync="monto-ars">[monto ARS]</span></div>
-          <div class="s-meta">Sueldo bruto mensual</div>
+          <div class="s-amount"><span class="currency">USD</span><span contenteditable="true" data-sync="monto-ars-usd">[equiv. USD]</span></div>
+          <div class="s-meta">Parte en pesos (equiv. USD)</div>
         </div>
       </div>
     </div>
@@ -333,7 +345,7 @@
         </div>
         <div class="desglose-row">
           <span>Relación de dependencia — ARS bruto</span>
-          <span class="d-val">$ <span contenteditable="true" data-sync="monto-ars">[ARS]</span></span>
+          <span class="d-val">$ <span contenteditable="true" data-sync="monto-ars">[ARS bruto]</span></span>
         </div>
         <div class="desglose-row">
           <span>Obra social OSDE 310</span>
@@ -352,6 +364,8 @@
         Esta promoción es efectiva al <span contenteditable="true">[fecha]</span>, esto quiere decir que a fin de este mes ya cobrarías el sueldo nuevo.
       </div>
     </div>
+
+    <p class="body-text" contenteditable="true" style="margin-top:10px; min-height:1.5em; outline:none;" data-placeholder="Agregá acá cualquier detalle adicional...">[Información adicional opcional]</p>
 
     <p class="closing">¡Nos encanta que seas parte de este equipo y estamos muy orgullosos de tu crecimiento! 🚀</p>
 
