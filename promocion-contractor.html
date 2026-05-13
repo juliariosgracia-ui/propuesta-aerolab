@@ -195,6 +195,13 @@
     color: var(--cream);
   }
 
+  .closing[contenteditable]:empty::before {
+    content: attr(data-placeholder);
+    color: var(--ink-soft);
+    font-style: italic;
+    pointer-events: none;
+  }
+
   .closing {
     font-size: 15px; line-height: 1.75;
     color: var(--ink-mid);
@@ -307,6 +314,8 @@
         Esta promoción es efectiva al <span contenteditable="true">[fecha]</span>, esto quiere decir que a fin de este mes ya cobrarías el sueldo nuevo.
       </div>
     </div>
+
+    <p class="closing" contenteditable="true" style="margin-top:10px; min-height:1.5em; outline:none;" data-placeholder="Agregá acá cualquier detalle adicional...">[Información adicional opcional]</p>
 
     <p class="closing">¡Nos encanta que seas parte de este equipo y estamos muy orgullosos de tu crecimiento! Esta promoción es el reconocimiento de todo lo que aportás a Aerolab todos los días. 🚀</p>
 
